@@ -7,12 +7,26 @@
     .disabled{
       color:#cccccc
     }
+    .searchBar{
+      padding: 5px;
+    }
+    .enumerated{
+      padding-left: 5px;
+      display:inline;
+    }
+    /*.enclosingDiv{
+      padding-bottom: 10px;
+    }*/
+    .deleteButton{
+      display:inline;
+      float: right;
+    }
     </style>
     <script src ="./jquery.js"></script>
   </head>
   <body style="width:300px">
-    <input value="search..." id="searchBar" />
-    <div id="tempDiv" style:"overflow:hidden"> </div>
+    <input value="search..." id="searchBar" class='searchBar' />
+    <div id="tempDiv" style="padding-top:5px"> </div>
     <script src = "./popup.js"></script>
   </body>
 </html>

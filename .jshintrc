@@ -1,9 +1,9 @@
 {
-    "unused":true,
-    "undef":true,
-    "globals":{
-        "$":true,
-        "chrome":true,
-        "document":true
-    }
+  "unused":true,
+  "undef":true,
+  "browser":true,
+  "globals":{
+    "chrome":true,
+    "$":true
+  }
 }

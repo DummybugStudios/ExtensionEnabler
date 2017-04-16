@@ -6,8 +6,14 @@ function clearDiv(){
 }
 
 
+function reload(){
+  chrome.runtime.sendMessage({type:'search', value:''}, onResponse);
+}
 function enableDisable (id, value) {
   chrome.runtime.sendMessage({type:'changeState', id:id, value:value});
+}
+function uninstall(id){
+  chrome.runtime.sendMessage({type:'uninstall', id:id});
 }
 
 //TODO find a way to change the color when selected
@@ -15,17 +21,30 @@ function enableDisable (id, value) {
 // Add a new entry in the body for the extension provided
 function makeNewElement (extension) {
   var enclosingdiv = document.createElement('div');
+  // $(enclosingdiv).addClass('enclosingDiv');
+  $(enclosingdiv).css('padding-bottom', '10px');
+
   var p = document.createElement('p');
+  $(p).addClass('enumerated');
   p.innerHTML = extension.name;
 
   var checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
-  checkbox.setAttribute('style','float:left');
-  checkbox.setAttribute('id', extension.id);
+  // checkbox.setAttribute('style','display:inline');
+  checkbox.setAttribute('ext_id', extension.id);
+
+  var deletebutton = document.createElement('img');
+  deletebutton.src= 'delete.png';
+  $(deletebutton).addClass('deleteButton');
+  //deletebutton.setAttribute('style','display:inline');
+  deletebutton.onclick = function(){
+    uninstall($(this).parent().find('input').attr('ext_id'));
+    reload();
+  };
 
   // bind change to enable and disable
   $(checkbox).change(function() {
-    enableDisable(this.id, this.checked);
+    enableDisable($(this).attr('ext_id'), this.checked);
     var text = $(this).parent().find('p');
     text.toggleClass('disabled');
   });
@@ -38,6 +57,7 @@ function makeNewElement (extension) {
   }
   enclosingdiv.appendChild(checkbox);
   enclosingdiv.appendChild(p);
+  enclosingdiv.appendChild(deletebutton);
   div.append(enclosingdiv);
 }
 
@@ -52,6 +72,4 @@ search.keyup(function() {
   chrome.runtime.sendMessage({type:'search', value:search.val()}, onResponse);
 });
 
-search.focus(function(){
-  chrome.runtime.sendMessage({type:'search', value:''}, onResponse);
-});
+search.focus(reload);

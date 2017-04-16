@@ -15,6 +15,10 @@ function enableDisable (id, value) {
   chrome.management.setEnabled(id, value);
 }
 
+function uninstall (id) {
+  chrome.management.uninstall(id);
+}
+
 function sendMessageBack (request, sender, respond) {
   switch(request.type){
     case 'search':
@@ -31,6 +35,11 @@ function sendMessageBack (request, sender, respond) {
       var id = request.id;
       var value = request.value;
       enableDisable(id, value);
+      break;
+
+    case 'uninstall':
+      var id = request.id;
+      uninstall(id);
       break;
   }
 }

@@ -1,0 +1,18 @@
+{
+  "manifest_version":2,
+  "name":"Extension Enabler",
+  "description":"Extension that enables and disables other extensions",
+  "version":"1.0",
+
+  "browser_action":{
+    "default_popup":"popup.html",
+    "default_script":"popup.js"
+  },
+  "permissions":[
+    "activeTab",
+    "management"
+  ],
+  "background":{
+      "scripts":["background.js"]
+  }
+}

@@ -1,10 +1,10 @@
 
 function matchTerm (term, all, callback){
-  result = [];
+  var result = [];
   term = term.toLowerCase();
   all.forEach(function(elem) {
-    name = elem.name.toLowerCase();
-    description = elem.description.toLowerCase();
+    var name = elem.name.toLowerCase();
+    var description = elem.description.toLowerCase();
     if (name.indexOf(term) > -1 || description.indexOf(term) > -1)
       result.push(elem);
   });
@@ -18,7 +18,7 @@ function enableDisable (id, value) {
 function sendMessageBack (request, sender, respond) {
   switch(request.type){
     case 'search':
-      term = request.value;
+      var term = request.value;
 
       //send all extensions to matchTerm
       chrome.management.getAll( function(args) {
@@ -28,8 +28,8 @@ function sendMessageBack (request, sender, respond) {
       return true;
 
     case 'changeState':
-      id = request.id;
-      value = request.value;
+      var id = request.id;
+      var value = request.value;
       enableDisable(id, value);
       break;
   }

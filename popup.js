@@ -1,12 +1,11 @@
-search = $('#searchBar');
-div = $('#tempDiv');
+var search = $('#searchBar');
+var div = $('#tempDiv');
 
 function clearDiv(){
   div.empty();
 }
 
 
-// Coming soon! As soon as I read futher into the API
 function enableDisable (id, value) {
   chrome.runtime.sendMessage({type:'changeState', id:id, value:value});
 }
@@ -15,19 +14,19 @@ function enableDisable (id, value) {
 
 // Add a new entry in the body for the extension provided
 function makeNewElement (extension) {
-  enclosingdiv = document.createElement('div');
-  p = document.createElement('p');
+  var enclosingdiv = document.createElement('div');
+  var p = document.createElement('p');
   p.innerHTML = extension.name;
 
-  checkbox = document.createElement('input');
+  var checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
   checkbox.setAttribute('style','float:left');
   checkbox.setAttribute('id', extension.id);
 
   // bind change to enable and disable
-  $(checkbox).change(function(e) {
+  $(checkbox).change(function() {
     enableDisable(this.id, this.checked);
-    text = $(this).parent().find('p');
+    var text = $(this).parent().find('p');
     text.toggleClass('disabled');
   });
 
@@ -49,10 +48,10 @@ function onResponse (response) {
   });
 }
 
-search.keyup(function(e) {
+search.keyup(function() {
   chrome.runtime.sendMessage({type:'search', value:search.val()}, onResponse);
 });
 
-search.focus(function(e){
+search.focus(function(){
   chrome.runtime.sendMessage({type:'search', value:''}, onResponse);
 });

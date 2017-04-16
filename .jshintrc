@@ -1,0 +1,9 @@
+{
+    "unused":true,
+    "undef":true,
+    "globals":{
+        "$":true,
+        "chrome":true,
+        "document":true
+    }
+}

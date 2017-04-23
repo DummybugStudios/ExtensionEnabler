@@ -1,6 +1,54 @@
 var search = $('#searchBar');
 var div = $('#tempDiv');
 
+var current;
+
+function chooseNextElement(){
+  var list  = div.children();
+  if (current === undefined){
+    current = list.first();
+    current.addClass('selected');
+    return;
+  }
+  current.removeClass('selected');
+
+  if (current.is( list.last() ) ) {
+    current = list.first();
+  }else{
+    current = current.next();
+  }
+  current.addClass('selected');
+}
+
+function choosePrevElement(){
+  var list = div.children();
+  if (current === undefined){
+    current = list.last();
+    current.addClass('selected');
+    return;
+  }
+  current.removeClass('selected');
+
+  if (current.is( list.first() )){
+    current = list.last();
+  }else{
+    current = current.prev();
+  }
+  current.addClass('selected');
+}
+
+function chooseCurrentElement(){
+  var checkbox = current.find('input');
+  var text  = current.find('p');
+
+  // TODO change ext_id once  once events is merged
+  var ext_id = checkbox.attr('ext_id');
+
+  checkbox.prop('checked', !checkbox.prop('checked'));
+  enableDisable(ext_id, checkbox.prop('checked'));
+  text.toggleClass('disabled');
+}
+
 function clearDiv(){
   div.empty();
 }
@@ -10,6 +58,7 @@ function reload(){
   chrome.runtime.sendMessage({type:'search', value:''}, onResponse);
 }
 function enableDisable (id, value) {
+  console.log(id, value);
   chrome.runtime.sendMessage({type:'changeState', id:id, value:value});
 }
 function uninstall(id){
@@ -62,14 +111,29 @@ function makeNewElement (extension) {
 }
 
 function onResponse (response) {
+  current = undefined;
   clearDiv();
   response.forEach(function(elem) {
     makeNewElement(elem);
   });
+  chooseNextElement();
 }
 
-search.keyup(function() {
+search.keyup(function(e) {
+  var key = e.keyCode;
+  if (key != 40 && key != 38 && key != 13){
   chrome.runtime.sendMessage({type:'search', value:search.val()}, onResponse);
+}
+else {
+  if(key == 40)
+    chooseNextElement();
+  else if (key == 38)
+    choosePrevElement();
+  else if (key == 13)
+    chooseCurrentElement();
+}
 });
 
-search.focus(reload);
+search.focus(function() {
+  reload();
+});

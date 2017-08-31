@@ -1,46 +1,81 @@
 
-function matchTerm (term, all, callback){
+function matchTerm (term, all, callback)
+{
   var result = [];
   term = term.toLowerCase();
-  all.forEach(function(elem) {
+
+  all.forEach(function(elem)
+  {
     var name = elem.name.toLowerCase();
     var description = elem.description.toLowerCase();
     if (name.indexOf(term) > -1 || description.indexOf(term) > -1)
+    {
       result.push(elem);
+    }
+
+
   });
+
   callback(result);
+
 }
 
-function enableDisable (id, value) {
+function enableDisable (id, value)
+{
   chrome.management.setEnabled(id, value);
 }
 
-function uninstall (id) {
+function uninstall (id)
+{
   chrome.management.uninstall(id);
 }
 
-function sendMessageBack (request, sender, respond) {
-  switch(request.type){
+function sendMessageBack (request, sender, respond)
+{
+  switch(request.type)
+    {
     case 'search':
       var term = request.value;
+      term = term.toLowerCase();
 
-      //send all extensions to matchTerm
-      chrome.management.getAll( function(args) {
-        matchTerm(term, args, respond);
+      chrome.management.getAll( function(allExtensions)
+          {
+          var result = [];
+
+          allExtensions.forEach(function(elem) {
+              // TODO allow user to be able to choose extension or apps or themes or all
+              
+              if (elem.ExtensionType == "extension")
+              {
+                  var name = elem.name.toLowerCase();
+                  var description = elem.description.toLowerCase();
+                  if ( name.indexOf(term) > -1 || description.indexOf(term) > -1 )
+                  {
+                    result.push(elem);
+                  }
+              } else
+              {
+                  console.log("none found!");
+              }
+
+          });
+
+          respond(result);
+          
       });
 
       return true;
 
     case 'changeState':
-      var id = request.id;
-      var value = request.value;
-      enableDisable(id, value);
-      break;
+        var id = request.id;
+        var value = request.value;
+        enableDisable(id, value);
+        break;
 
     case 'uninstall':
-      var id = request.id;
-      uninstall(id);
-      break;
+        var id = request.id;
+        uninstall(id);
+        break;
   }
 }
 

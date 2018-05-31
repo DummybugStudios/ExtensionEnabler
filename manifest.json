@@ -1,8 +1,8 @@
 {
   "manifest_version":2,
-  "name":"Extension Enabler",
-  "description":"Extension that enables and disables other extensions",
-  "version":"1.0",
+  "name":"Extension Manager",
+  "description":"Extension that manages other extensions",
+  "version":"0.0.0.1",
 
   "browser_action":{
     "default_popup":"popup.html",

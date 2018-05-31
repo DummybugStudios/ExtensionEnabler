@@ -43,25 +43,17 @@ function sendMessageBack (request, sender, respond)
           var result = [];
 
           allExtensions.forEach(function(elem) {
-              // TODO allow user to be able to choose extension or apps or themes or all
-              
-              if (elem.ExtensionType == "extension")
-              {
-                  var name = elem.name.toLowerCase();
-                  var description = elem.description.toLowerCase();
-                  if ( name.indexOf(term) > -1 || description.indexOf(term) > -1 )
-                  {
-                    result.push(elem);
-                  }
-              } else
-              {
-                  console.log("none found!");
-              }
+            var name = elem.name.toLowerCase();
+            var description = elem.description.toLowerCase();
+            if ( name.indexOf(term) > -1 || description.indexOf(term) > -1 )
+            {
+              result.push(elem);
+            }
 
           });
 
           respond(result);
-          
+
       });
 
       return true;

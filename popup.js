@@ -42,7 +42,7 @@ function chooseCurrentElement(){
   var text  = current.find('p');
 
   // TODO change ext_id once  once events is merged
-  var ext_id = checkbox.attr('ext_id');
+  var ext_id = current.attr('ext_id');
 
   checkbox.prop('checked', !checkbox.prop('checked'));
   enableDisable(ext_id, checkbox.prop('checked'));
@@ -69,31 +69,43 @@ function uninstall(id){
 
 // Add a new entry in the body for the extension provided
 function makeNewElement (extension) {
-  var enclosingdiv = document.createElement('div');
-  // $(enclosingdiv).addClass('enclosingDiv');
-  $(enclosingdiv).css('padding-bottom', '10px');
 
+  // Create enclosing div
+  var enclosingdiv = document.createElement('div');
+  $(enclosingdiv).css('padding-bottom', '10px');
+  enclosingdiv.setAttribute('ext_id', extension.id);
+
+  // Create icon image
+  var icon = document.createElement('img');
+
+  if (extension.icons)
+    icon.src = extension.icons[0].url;
+
+  icon.height = 16;
+  icon.width = 16;
+  $(icon).css("padding-right",5);
+
+  // Create extension Name
   var p = document.createElement('p');
   $(p).addClass('enumerated');
   p.innerHTML = extension.name;
 
+  // Create checkbox
   var checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
-  // checkbox.setAttribute('style','display:inline');
-  checkbox.setAttribute('ext_id', extension.id);
 
+  // Create deletebutton
   var deletebutton = document.createElement('img');
   deletebutton.src= 'delete.png';
   $(deletebutton).addClass('deleteButton');
-  //deletebutton.setAttribute('style','display:inline');
   deletebutton.onclick = function(){
-    uninstall($(this).parent().find('input').attr('ext_id'));
+    uninstall($(this).parent().attr('ext_id'));
     reload();
   };
 
   // bind change to enable and disable
   $(checkbox).change(function() {
-    enableDisable($(this).attr('ext_id'), this.checked);
+    enableDisable($(this).parent().attr('ext_id'), this.checked);
     var text = $(this).parent().find('p');
     text.toggleClass('disabled');
   });
@@ -104,6 +116,9 @@ function makeNewElement (extension) {
     // p.setAttribute('style', 'color:#cccccc');
     $(p).addClass('disabled');
   }
+
+  // Append all of the elements
+  enclosingdiv.appendChild(icon);
   enclosingdiv.appendChild(checkbox);
   enclosingdiv.appendChild(p);
   enclosingdiv.appendChild(deletebutton);

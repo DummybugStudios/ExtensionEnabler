@@ -10,6 +10,10 @@ Ctrl+L is the default keyboard shortcut to bring the popup up.
 
 ![screenshot](https://user-images.githubusercontent.com/8367212/41513080-f82845fa-728d-11e8-8391-65d2cb978173.gif)
 ## Installing:
+* Get it on the [Chrome Web Store](https://chrome.google.com/webstore/detail/extension-manager/baamgahfpefickjomejmemkejkeglaek)  
+
+Or if you wanna be fancy...
+
 * Clone the repo
 * go to url chrome://extensions
 * Enable Developer mode and load this as an unpacked extension

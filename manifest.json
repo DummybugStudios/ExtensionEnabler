@@ -9,7 +9,6 @@
     "default_script":"popup.js"
   },
   "permissions":[
-    "activeTab",
     "management"
   ],
   "background":{

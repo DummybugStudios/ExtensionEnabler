@@ -1,0 +1,37 @@
+body {
+    width: 300px;
+}
+
+.disabled {
+    color: #aaa
+}
+
+.searchBar {
+    padding: 5px;
+    width: 80%;
+}
+
+.enumerated {
+    padding-left: 5px;
+    display: inline;
+}
+
+.enclosingDiv{
+    padding-bottom: 10px;
+}
+.deleteButton {
+    display: inline;
+    float: right;
+}
+
+.selected {
+    background: #ccc;
+}
+
+.item {
+    padding-bottom: 10px;
+}
+
+.item img:first-child {
+    padding-right: 5px;
+}

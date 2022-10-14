@@ -72,7 +72,7 @@ function makeNewElement (extension) {
 
   // Create enclosing div
   var enclosingdiv = document.createElement('div');
-  $(enclosingdiv).css('padding-bottom', '10px');
+  $(enclosingdiv).addClass("item");
   enclosingdiv.setAttribute('ext_id', extension.id);
 
   // Create icon image
@@ -83,7 +83,6 @@ function makeNewElement (extension) {
 
   icon.height = 16;
   icon.width = 16;
-  $(icon).css("padding-right",5);
 
   // Create extension Name
   var p = document.createElement('p');

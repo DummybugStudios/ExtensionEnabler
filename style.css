@@ -2,13 +2,13 @@ body {
     width: 300px;
 }
 
-.disabled {
-    color: #aaa
-}
-
 .searchBar {
     padding: 5px;
     width: 80%;
+}
+
+.item {
+    padding-bottom: 10px;
 }
 
 .enumerated {
@@ -16,22 +16,20 @@ body {
     display: inline;
 }
 
-.enclosingDiv{
-    padding-bottom: 10px;
-}
-.deleteButton {
-    display: inline;
-    float: right;
+.disabled {
+    color: #aaa
 }
 
 .selected {
     background: #ccc;
 }
 
-.item {
-    padding-bottom: 10px;
+.icon {
+    padding-right: 5px;
 }
 
-.item img:first-child {
-    padding-right: 5px;
+.deleteButton {
+    display: inline;
+    float: right;
+    cursor: pointer;
 }

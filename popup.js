@@ -77,6 +77,7 @@ function makeNewElement (extension) {
 
   // Create icon image
   var icon = document.createElement('img');
+  $(icon).addClass("icon");
 
   if (extension.icons)
     icon.src = extension.icons[0].url;
@@ -112,7 +113,6 @@ function makeNewElement (extension) {
   if (extension.enabled){
     checkbox.setAttribute('checked', true);
   }else{
-    // p.setAttribute('style', 'color:#cccccc');
     $(p).addClass('disabled');
   }
 

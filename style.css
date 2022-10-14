@@ -1,19 +1,24 @@
 body {
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0.5em;
 }
 
 .searchBar {
-    padding: 5px;
-    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
 }
 
 .item {
-    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    height: 30px;
 }
 
-.enumerated {
-    padding-left: 5px;
-    display: inline;
+.item p {
+    width: 100%;
+    margin-left: 10px;
 }
 
 .disabled {
@@ -24,6 +29,12 @@ body {
     background: #ccc;
 }
 
+
+input[type="checkbox"] {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
 .icon {
     padding-right: 5px;
 }
@@ -32,4 +43,5 @@ body {
     display: inline;
     float: right;
     cursor: pointer;
+    margin-right: 5px;
 }

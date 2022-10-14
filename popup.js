@@ -65,8 +65,6 @@ function uninstall(id){
   chrome.runtime.sendMessage({type:'uninstall', id:id});
 }
 
-//TODO find a way to change the color when selected
-
 // Add a new entry in the body for the extension provided
 function makeNewElement (extension) {
 
@@ -87,7 +85,6 @@ function makeNewElement (extension) {
 
   // Create extension Name
   var p = document.createElement('p');
-  $(p).addClass('enumerated');
   p.innerHTML = extension.name;
 
   // Create checkbox
@@ -117,8 +114,8 @@ function makeNewElement (extension) {
   }
 
   // Append all of the elements
-  enclosingdiv.appendChild(icon);
   enclosingdiv.appendChild(checkbox);
+  enclosingdiv.appendChild(icon);
   enclosingdiv.appendChild(p);
   enclosingdiv.appendChild(deletebutton);
   div.append(enclosingdiv);
@@ -133,7 +130,7 @@ function onResponse (response) {
   chooseNextElement();
 }
 
-search.keyup(function(e) {
+search.keydown(function(e) {
   var key = e.keyCode;
   if (key != 40 && key != 38 && key != 13){
   chrome.runtime.sendMessage({type:'search', value:search.val()}, onResponse);
